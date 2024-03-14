@@ -26,9 +26,9 @@ public class MineSweeper extends javax.swing.JFrame {
         board1.setFlagPanelInterface(flagPanel);
         board1.setTimerInterface(timerText1);
         resetGame();
-        //setResizable(false);
+        setResizable(false);
         setPlayIcon();
-        //pack();
+        pack();
     }
 
     /**
@@ -79,9 +79,7 @@ public class MineSweeper extends javax.swing.JFrame {
         jToolBar1.add(jButtonPlay);
         jToolBar1.add(filler2);
 
-        timerText1.setBackground(new java.awt.Color(0, 0, 0));
-        timerText1.setForeground(new java.awt.Color(204, 0, 51));
-        timerText1.setText("00:00");
+        timerText1.setText("timerText1");
         jToolBar1.add(timerText1);
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
@@ -102,7 +100,17 @@ public class MineSweeper extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
-        board1.setLayout(new java.awt.GridLayout(10, 10));
+        javax.swing.GroupLayout board1Layout = new javax.swing.GroupLayout(board1);
+        board1.setLayout(board1Layout);
+        board1Layout.setHorizontalGroup(
+            board1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 515, Short.MAX_VALUE)
+        );
+        board1Layout.setVerticalGroup(
+            board1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 201, Short.MAX_VALUE)
+        );
+
         getContentPane().add(board1, java.awt.BorderLayout.CENTER);
 
         jMenu1.setText("File");

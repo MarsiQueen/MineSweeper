@@ -15,7 +15,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
 
@@ -33,6 +35,7 @@ public class Board extends javax.swing.JPanel {
     private FlagPanelInterface flagPanelInterface;
     private TimerInterface timerInterface;
     private boolean firstTime;
+    
 
     /**
      * Creates new form Board
@@ -44,6 +47,7 @@ public class Board extends javax.swing.JPanel {
         mouseAdapter = new MouseAdapter() {
             @Override
                 public void mouseClicked(MouseEvent e) {
+                    //if (gameOver) return;
                     MineButton b = (MineButton) e.getComponent();
                     
                     if (e.getButton() == MineButton.LEFT_BUTTON) {
@@ -92,7 +96,39 @@ public class Board extends javax.swing.JPanel {
                 }
             }
         }
+        if (matrix[row][col] == -1) {
+            System.out.println("LOSE");
+            timerInterface.stop();
+            JOptionPane.showMessageDialog(this, "You lose T.T");
+        }
+        
+        checkWin();
 
+    }
+    
+    private void checkWin() {
+        int numRows = ConfigData.getInstance().getNumRows();
+        int numCols = ConfigData.getInstance().getNumCols();
+        int numBombs = ConfigData.getInstance().getNumBombs();
+        int counterOpen = 0;
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numCols; col ++) {
+                if (buttons[row][col].getState() == ButtonState.OPEN){
+                    counterOpen ++;
+                    if (counterOpen + numBombs == numRows * numCols){
+                        processWin();
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    private void processWin() {
+        timerInterface.stop();
+        JOptionPane.showMessageDialog(this, "You win ^_^");
+        
+        
     }
     
     private Dimension getCellDimension() {
